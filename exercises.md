@@ -264,6 +264,9 @@ Chọn 3–5 dimensions:
 verbosity bias và self-preference bằng cách nào?
 
 > *Câu trả lời:*
+> - **Position bias:** Trộn thứ tự (shuffle) các chunk hoặc câu trả lời mẫu khi đưa vào LLM-as-a-judge để chấm điểm, đảm bảo LLM không thiên vị thông tin nằm ở đầu/cuối prompt.
+> - **Verbosity bias:** Yêu cầu prompt cho judge tập trung chấm tính chính xác (fact-checking) thay vì chấm độ dài của câu chữ, hoặc cung cấp penalty rõ ràng cho câu trả lời dài dòng không cần thiết (lan man).
+> - **Self-preference bias:** Sử dụng nhiều model khác nhau để chấm chéo (Cross-evaluation). Ví dụ: Model sinh câu trả lời là Gemini, còn Model chấm điểm (Judge) là GPT-4o hoặc Claude 3.5 Sonnet.
 
 ### Exercise 3.4 — Framework Comparison (Bonus +5)
 
