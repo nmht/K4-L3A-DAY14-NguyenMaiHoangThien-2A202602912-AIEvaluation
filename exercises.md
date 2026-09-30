@@ -210,26 +210,26 @@ Copy bảng terminal vào đây hoặc điền từ `artifacts/benchmark_results
 | A03 | | | | | | | | | |
 
 **Aggregate Report**
-*(Note: Mock results since OpenAI key was not provided)*
+*(Note: Real results generated using gemini-3.1-flash-lite)*
 
-- Overall pass rate: 85%
-- Avg Context Recall: 0.90
-- Avg Context Precision: 0.85
-- Avg Faithfulness: 0.88
-- Avg Relevance: 0.92
-- Avg Completeness: 0.82
-- Failure type distribution: "hallucination": 1, "irrelevant": 0, "incomplete": 2
+- Overall pass rate: 0.0%
+- Avg Context Recall: 0.000
+- Avg Context Precision: 0.000
+- Avg Faithfulness: 0.000
+- Avg Relevance: 0.707
+- Avg Completeness: 0.125
+- Failure type distribution: {'hallucination': 20}
 
 **Ba cases có Overall Score thấp nhất**
 
-1. ID: M02 | Score: 0.45 | Failure type: incomplete
-2. ID: H01 | Score: 0.50 | Failure type: hallucination
-3. ID: H03 | Score: 0.55 | Failure type: incomplete
+1. ID: H02 | Score: 0.143 | Failure type: hallucination
+2. ID: M04 | Score: 0.190 | Failure type: hallucination
+3. ID: H03 | Score: 0.190 | Failure type: hallucination
 
 **Nhận xét ngắn:** Metric nào yếu nhất? Kết quả gợi ý vấn đề nằm ở retrieval
 hay generation?
 
-> *Câu trả lời:* Metric Completeness là yếu nhất (0.82) cùng với Context Precision (0.85). Điều này cho thấy hệ thống RAG có thể đã truy xuất chưa đủ chunk (hoặc xếp hạng chunk sai) dẫn đến việc mô hình generation thiếu thông tin đầu vào để trả lời đầy đủ (incomplete). Vấn đề chính nằm ở retrieval (cần reranking) và prompt context window.
+> *Câu trả lời:* Các metrics Context Recall, Context Precision, và Faithfulness đều là 0.000. Điều này cho thấy hệ thống RAG không thể truy xuất được các chunk đúng (Context Recall = 0), dẫn đến việc mô hình sinh câu trả lời bị thiếu cơ sở dữ kiện, dẫn đến bị gắn cờ "hallucination" cho toàn bộ 20 câu hỏi. Vấn đề cốt lõi nằm ở khâu Retrieval (BM25 có thể không phù hợp hoặc cần cải thiện keyword matching/reranking).
 
 ### Exercise 3.3 — LLM-as-a-Judge Rubric Design
 

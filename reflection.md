@@ -9,32 +9,32 @@ answer/context trace trong `artifacts/actual_answers.json` trước khi kết lu
 
 ## 1. Benchmark Results Summary
 
-**Overall pass rate:** ____%
+**Overall pass rate:** 0.0%
 
 | Metric | Average | Min | Max | Nhận xét |
 |---|---:|---:|---:|---|
-| Context Recall | | | | |
-| Context Precision | | | | |
-| Faithfulness | | | | |
-| Relevance | | | | |
-| Completeness | | | | |
-| Overall Score | | | | |
+| Context Recall | 0.000 | 0.000 | 0.000 | Hoàn toàn không lấy được đoạn văn chứa thông tin cần thiết. |
+| Context Precision | 0.000 | 0.000 | 0.000 | Các chunks được lấy đều không liên quan đến expected answer. |
+| Faithfulness | 0.000 | 0.000 | 0.000 | Trả lời không dựa trên thông tin retrieved được. |
+| Relevance | 0.707 | 0.429 | 0.857 | Độ liên quan giữa câu trả lời và câu hỏi ở mức trung bình - khá. |
+| Completeness | 0.125 | 0.000 | 0.500 | Câu trả lời thiếu rất nhiều ý của expected answer. |
+| Overall Score | 0.301 | 0.143 | 0.405 | Điểm trung bình rất thấp do Faithfulness và Completeness kém. |
 
 **Score interpretation**
 
-- Metrics/cases ở mức Good (0.8–1.0): ____
-- Metrics/cases ở mức Needs Work (0.6–0.8): ____
-- Metrics/cases ở mức Significant Issues (<0.6): ____
+- Metrics/cases ở mức Good (0.8–1.0): 0
+- Metrics/cases ở mức Needs Work (0.6–0.8): 0 (về overall)
+- Metrics/cases ở mức Significant Issues (<0.6): 20
 
 **Failure type distribution**
 
 | Failure Type | Count | Percentage |
 |---|---:|---:|
-| hallucination | | |
-| irrelevant | | |
-| incomplete | | |
-| off_topic | | |
-| refusal | | |
+| hallucination | 20 | 100% |
+| irrelevant | 0 | 0% |
+| incomplete | 0 | 0% |
+| off_topic | 0 | 0% |
+| refusal | 0 | 0% |
 
 **Chẩn đoán tổng quan:** Vấn đề chính nằm ở retrieval, generation hay cả hai?
 Dùng ít nhất hai metrics để bảo vệ kết luận.

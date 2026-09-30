@@ -254,16 +254,23 @@ class OpenAIGenerator:
         self.max_output_tokens = max_output_tokens
 
     def generate(self, prompt: str) -> str:
-        response = self.client.responses.create(
-            model=self.model,
-            input=prompt,
-            temperature=0,
-            max_output_tokens=self.max_output_tokens,
-        )
-        answer = response.output_text.strip()
-        if not answer:
-            raise RuntimeError("OpenAI returned an empty answer")
-        return answer
+        import time
+        for attempt in range(10):
+            try:
+                response = self.client.chat.completions.create(
+                    model=self.model,
+                    messages=[{"role": "user", "content": prompt}],
+                    temperature=0,
+                    max_tokens=self.max_output_tokens,
+                )
+                answer = response.choices[0].message.content.strip()
+                if not answer:
+                    raise RuntimeError("OpenAI returned an empty answer")
+                return answer
+            except Exception as e:
+                print(f"API Error ({type(e).__name__}), sleeping 30s (attempt {attempt+1}/10)...")
+                time.sleep(30)
+        raise RuntimeError("Failed after 10 retries")
 
 
 @dataclass(frozen=True)
@@ -455,7 +462,7 @@ def generate_actual_answers(
     return {
         "schema_version": "1.0",
         "corpus_id": assistant.corpus_id,
-        "generated_at": datetime.now(UTC).isoformat(),
+        "generated_at": datetime.now(timezone.utc).isoformat(),
         "agent": {
             "name": "domain-assistant",
             "model": model,
