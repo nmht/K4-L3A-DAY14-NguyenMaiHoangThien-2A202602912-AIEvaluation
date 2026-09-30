@@ -30,11 +30,11 @@ critical.
 
 | Metric | Acceptable Low Score Scenario | Critical Low Score Scenario | Action Required |
 |---|---|---|---|
-| Faithfulness | | | |
-| Answer Relevance | | | |
-| Context Recall | | | |
-| Context Precision | | | |
-| Completeness | | | |
+| Faithfulness | Model trả lời đúng "Tôi không biết" khi thiếu context (metric có thể phạt nhầm). | Model bịa thông tin sai lệch (hallucination) dựa trên context. | Cải thiện prompt, buộc model chỉ dùng context. |
+| Answer Relevance | Câu hỏi mang tính giao tiếp (chit-chat), câu trả lời phù hợp nhưng metric đánh giá thấp do không chứa keyword. | Câu trả lời hoàn toàn lạc đề, không giải quyết vấn đề của khách hàng. | Tinh chỉnh prompt, thêm ví dụ (few-shot) xử lý câu hỏi lạc đề. |
+| Context Recall | Câu trả lời thực tế chỉ cần một phần nhỏ của expected answer, các phần bị thiếu không quá quan trọng. | Retriever bỏ sót các thông tin cốt lõi (vd: policy, số tiền) khiến câu trả lời sai. | Cải thiện embedding model, dùng Hybrid Search hoặc mở rộng top-k. |
+| Context Precision | Có nhiều chunk nhiễu (noise) lọt vào top đầu nhưng LLM đủ thông minh để chắt lọc thông tin đúng. | Các chunk quan trọng bị đẩy xuống quá thấp và bị cắt khỏi context window của LLM. | Áp dụng kỹ thuật Reranking (vd: Cross-Encoder) sau bước retrieval. |
+| Completeness | Câu trả lời ngắn gọn, súc tích, đi thẳng vào vấn đề thay vì liệt kê dông dài. | Câu trả lời thiếu các điều kiện quan trọng hoặc các bước bắt buộc phải có. | Prompt hướng dẫn LLM trả lời đầy đủ các khía cạnh của câu hỏi. |
 
 ### Exercise 1.2 — Bias trong LLM-as-a-Judge
 
@@ -46,15 +46,15 @@ Ba bias thường gặp:
 
 **Câu 1: Thiết kế experiment phát hiện position bias với ít nhất hai conditions.**
 
-> *Câu trả lời:*
+> *Câu trả lời:* Đảo vị trí của các câu trả lời khi đưa vào prompt của Judge. Condition 1: Đánh giá Answer A trước, Answer B sau (A vs B). Condition 2: Đánh giá Answer B trước, Answer A sau (B vs A). Nếu Judge luôn chọn câu trả lời xuất hiện ở vị trí đầu tiên bất kể nội dung, thì có position bias.
 
 **Câu 2: Làm thế nào giảm verbosity bias bằng rubric design?**
 
-> *Câu trả lời:*
+> *Câu trả lời:* Trong rubric, định nghĩa rõ ràng việc chấm điểm dựa trên mật độ thông tin (information density) và tính chính xác, thay vì độ dài. Yêu cầu Judge trừ điểm các câu trả lời dài dòng, chứa thông tin thừa (noise) không giải quyết đúng trọng tâm câu hỏi.
 
 **Câu 3: Tại sao cần calibrate LLM judge với human labels?**
 
-> *Câu trả lời:*
+> *Câu trả lời:* Để đảm bảo tiêu chuẩn đánh giá của LLM đồng nhất với chuyên gia con người (human expert), đặc biệt đối với các domain có quy định phức tạp. LLM có thể hiểu sai một rule hoặc thiên vị một số kiểu câu trả lời, do đó cần so sánh điểm của LLM với Human để tinh chỉnh rubric hoặc prompt của Judge.
 
 ### Exercise 1.3 — Evaluation trong CI/CD
 
@@ -62,13 +62,16 @@ Ba bias thường gặp:
 
 | Metric | Threshold | Lý do |
 |---|---:|---|
-| Faithfulness | | |
-| Answer Relevance | | |
-| Completeness | | |
+| Faithfulness | 0.9 | Tránh Hallucination là ưu tiên hàng đầu, model tuyệt đối không được đưa thông tin sai lệch cho khách hàng. |
+| Answer Relevance | 0.8 | Câu trả lời cần phải đi vào đúng trọng tâm câu hỏi, tránh lan man. Có thể châm chước một chút nếu câu hỏi khó hoặc chit-chat. |
+| Completeness | 0.8 | Cần đảm bảo cung cấp đủ thông tin (vd: điều kiện đổi trả), nhưng đôi khi model tóm tắt nên không cần phải đạt tuyệt đối 1.0. |
 
 **Câu 2: Khi nào dùng offline evaluation, online evaluation và human review?**
 
 > *Câu trả lời:*
+> - **Offline evaluation:** Dùng trong giai đoạn phát triển (CI/CD) trước khi deploy. Chạy tự động bộ test trên Golden Dataset để kiểm tra các thay đổi về prompt, model, hay retrieval có làm giảm chất lượng (regression) không.
+> - **Online evaluation:** Dùng khi hệ thống đã chạy trên production. Theo dõi feedback thực tế của user (nút like/dislike) hoặc implicit signals (thời gian xem, click-through) để đánh giá độ hài lòng.
+> - **Human review:** Dùng để tạo Golden Dataset ban đầu, audit định kỳ một số lượng nhỏ các câu trả lời của LLM trên production (đặc biệt các case điểm thấp), và để calibrate LLM-as-a-Judge.
 
 ---
 
