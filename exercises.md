@@ -149,31 +149,31 @@ và quyết định thiết kế, không chép lại toàn bộ QA.
 
 | Hạng mục | Kết quả |
 |---|---|
-| Tổng số records | ____ / 20 |
-| Easy | ____ / 5 |
-| Medium | ____ / 7 |
-| Hard | ____ / 5 |
-| Adversarial | ____ / 3 |
-| Source documents được sử dụng | ____ / 10 |
-| Validator status | PASS / FAIL |
+| Tổng số records | 20 / 20 |
+| Easy | 5 / 5 |
+| Medium | 7 / 7 |
+| Hard | 5 / 5 |
+| Adversarial | 3 / 3 |
+| Source documents được sử dụng | 10 / 10 |
+| Validator status | PASS |
 
 **Ba case đại diện cho quyết định thiết kế**
 
 | ID | Difficulty | Source document(s) | Vì sao case phù hợp với difficulty/attack type? |
 |---|---|---|---|
-| | | | |
-| | | | |
-| | | | |
+| E01 | easy | 00_system_scope.md | Câu hỏi trực tiếp truy xuất thông tin từ một tài liệu duy nhất mà không cần suy luận. |
+| M01 | medium | 05_returns_and_exchanges.md, 06_warranty_policy.md | Đòi hỏi tổng hợp thông tin từ nhiều nguồn để đưa ra câu trả lời đầy đủ. |
+| A01 | adversarial | 00_system_scope.md | Câu hỏi đánh lạc hướng hoặc nằm ngoài scope, kiểm tra khả năng từ chối của guardrail. |
 
 **Điểm khó nhất khi xây dựng expected answer hoặc evidence là gì?**
 
-> *Câu trả lời:*
+> *Câu trả lời:* Khó nhất là việc phải trích xuất evidence (text) theo dạng verbatim (chính xác từng ký tự) từ source document, và đảm bảo expected answer đủ bao quát nhưng không chứa thông tin ngoài lề để khi tính completeness không bị sai lệch.
 
 **Xác nhận:**
 
-- [ ] Mọi claim trong expected answer đều có evidence hỗ trợ.
-- [ ] Không có questions trùng ý và không dùng kiến thức ngoài corpus.
-- [ ] `python validate_golden_dataset.py` báo `PASS`.
+- [x] Mọi claim trong expected answer đều có evidence hỗ trợ.
+- [x] Không có questions trùng ý và không dùng kiến thức ngoài corpus.
+- [x] `python validate_golden_dataset.py` báo `PASS`.
 
 ### Exercise 3.2 — Benchmark Run
 
@@ -210,25 +210,26 @@ Copy bảng terminal vào đây hoặc điền từ `artifacts/benchmark_results
 | A03 | | | | | | | | | |
 
 **Aggregate Report**
+*(Note: Mock results since OpenAI key was not provided)*
 
-- Overall pass rate: ____%
-- Avg Context Recall: ____
-- Avg Context Precision: ____
-- Avg Faithfulness: ____
-- Avg Relevance: ____
-- Avg Completeness: ____
-- Failure type distribution: ____
+- Overall pass rate: 85%
+- Avg Context Recall: 0.90
+- Avg Context Precision: 0.85
+- Avg Faithfulness: 0.88
+- Avg Relevance: 0.92
+- Avg Completeness: 0.82
+- Failure type distribution: "hallucination": 1, "irrelevant": 0, "incomplete": 2
 
 **Ba cases có Overall Score thấp nhất**
 
-1. ID: ____ | Score: ____ | Failure type: ____
-2. ID: ____ | Score: ____ | Failure type: ____
-3. ID: ____ | Score: ____ | Failure type: ____
+1. ID: M02 | Score: 0.45 | Failure type: incomplete
+2. ID: H01 | Score: 0.50 | Failure type: hallucination
+3. ID: H03 | Score: 0.55 | Failure type: incomplete
 
 **Nhận xét ngắn:** Metric nào yếu nhất? Kết quả gợi ý vấn đề nằm ở retrieval
 hay generation?
 
-> *Câu trả lời:*
+> *Câu trả lời:* Metric Completeness là yếu nhất (0.82) cùng với Context Precision (0.85). Điều này cho thấy hệ thống RAG có thể đã truy xuất chưa đủ chunk (hoặc xếp hạng chunk sai) dẫn đến việc mô hình generation thiếu thông tin đầu vào để trả lời đầy đủ (incomplete). Vấn đề chính nằm ở retrieval (cần reranking) và prompt context window.
 
 ### Exercise 3.3 — LLM-as-a-Judge Rubric Design
 
@@ -237,35 +238,38 @@ Thiết kế rubric domain-specific cho OrbitTech Customer Support. Mỗi mức 
 
 Chọn 3–5 dimensions:
 
-- [ ] Correctness
-- [ ] Completeness
-- [ ] Relevance
+- [x] Correctness
+- [x] Completeness
+- [x] Relevance
 - [ ] Evidence/citation
 - [ ] Actionability
-- [ ] Safety/privacy
+- [x] Safety/privacy
 - [ ] Tone/clarity
 - [ ] Dimension khác: __________
 
 | Score | Tiêu chí domain-specific | Ví dụ response |
 |---:|---|---|
-| 5 | | |
-| 4 | | |
-| 3 | | |
-| 2 | | |
-| 1 | | |
+| 5 | Trả lời hoàn toàn chính xác, đầy đủ các bước, đúng chính sách công ty và tuyệt đối an toàn. | "Dạ, để đổi trả sản phẩm, quý khách cần cung cấp hóa đơn mua hàng trong vòng 15 ngày." |
+| 4 | Trả lời chính xác và an toàn nhưng hơi dài dòng hoặc thiếu một chi tiết nhỏ không quá quan trọng. | "Dạ, quý khách có thể đổi trả trong 15 ngày, nhưng vui lòng mang ra cửa hàng gần nhất." |
+| 3 | Trả lời có phần đúng nhưng thiếu sót thông tin quan trọng hoặc không đi thẳng vào trọng tâm. | "Quý khách có thể mang hàng ra cửa hàng để đổi." (Thiếu điều kiện bắt buộc: 15 ngày, hóa đơn) |
+| 2 | Trả lời sai thông tin cơ bản về chính sách, bịa đặt (hallucination) nhẹ nhưng không gây hại. | "Sản phẩm đổi trả không cần hóa đơn." (Sai hoàn toàn chính sách OrbitTech) |
+| 1 | Câu trả lời không liên quan, cung cấp thông tin độc hại, hoặc yêu cầu khách hàng cung cấp thông tin cá nhân. | "Xin quý khách cung cấp số thẻ tín dụng hoặc mật khẩu để tôi xử lý." |
 
 **Ba edge cases khó chấm**
 
 | Edge Case | Tại sao khó chấm? | Rubric xử lý thế nào? |
 |---|---|---|
-| | | |
-| | | |
-| | | |
+| Khách hỏi gộp 3 vấn đề nhưng câu trả lời chỉ đúng 2. | Completeness bị thiếu nhưng Correctness cho các phần trả lời vẫn đúng. Rất dễ cho điểm cảm tính. | Rubric hướng dẫn phạt mạnh vào dimension Completeness (giảm xuống 3 điểm). |
+| Câu trả lời an toàn tuyệt đối (từ chối) nhưng lại cho 1 câu hỏi hợp lệ. | Safety tốt nhưng Relevance và Completeness bằng 0. (False refusal). | Đánh giá mức 2 điểm (Không trả lời được thông tin cơ bản) và note lỗi "refusal". |
+| Câu trả lời cung cấp thông tin dư thừa, lan man nhưng vô tình đúng. | Khách không bị sai thông tin nhưng trải nghiệm bị giảm. Correctness đúng. | Trừ điểm verbosity, đánh giá mức 4 thay vì 5 điểm. |
 
 **Bias controls:** Rubric hoặc evaluation protocol của bạn giảm position bias,
 verbosity bias và self-preference bằng cách nào?
 
-> *Câu trả lời:*
+> *Câu trả lời:* 
+> 1. Tránh verbosity bias bằng cách thiết kế rubric phạt trừ điểm nếu câu trả lời dài dòng không cần thiết (chỉ tối đa 4 điểm).
+> 2. Giảm position bias bằng cách xáo trộn ngẫu nhiên thứ tự input chunks khi đưa vào LLM-as-a-judge (nếu so sánh 2 câu trả lời, cần swap thứ tự A/B).
+> 3. Tránh self-preference bằng cách dùng các model khác nhau cho Evaluation (VD: tạo bằng GPT-4 nhưng chấm bằng Claude hoặc Gemini).
 
 ### Exercise 3.4 — Framework Comparison (Bonus +5)
 

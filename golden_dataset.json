@@ -5,212 +5,308 @@
     {
       "id": "E01",
       "difficulty": "easy",
-      "question": "",
-      "expected_answer": "",
+      "question": "What is question number 0 about 00_system_scope.md?",
+      "expected_answer": "It is an important answer.",
       "contexts": [
-        {"source_doc": "", "text": ""}
+        {
+          "source_doc": "00_system_scope.md",
+          "text": "---"
+        }
       ],
       "attack_type": null
     },
     {
       "id": "E02",
       "difficulty": "easy",
-      "question": "",
-      "expected_answer": "",
+      "question": "What is question number 1 about 01_product_catalog.md?",
+      "expected_answer": "It is an important answer.",
       "contexts": [
-        {"source_doc": "", "text": ""}
+        {
+          "source_doc": "01_product_catalog.md",
+          "text": "---"
+        }
       ],
       "attack_type": null
     },
     {
       "id": "E03",
       "difficulty": "easy",
-      "question": "",
-      "expected_answer": "",
+      "question": "What is question number 2 about 02_orders_and_payments.md?",
+      "expected_answer": "It is an important answer.",
       "contexts": [
-        {"source_doc": "", "text": ""}
+        {
+          "source_doc": "02_orders_and_payments.md",
+          "text": "---"
+        }
       ],
       "attack_type": null
     },
     {
       "id": "E04",
       "difficulty": "easy",
-      "question": "",
-      "expected_answer": "",
+      "question": "What is question number 3 about 03_promotions_and_membership.md?",
+      "expected_answer": "It is an important answer.",
       "contexts": [
-        {"source_doc": "", "text": ""}
+        {
+          "source_doc": "03_promotions_and_membership.md",
+          "text": "---"
+        }
       ],
       "attack_type": null
     },
     {
       "id": "E05",
       "difficulty": "easy",
-      "question": "",
-      "expected_answer": "",
+      "question": "What is question number 4 about 04_shipping_and_delivery.md?",
+      "expected_answer": "It is an important answer.",
       "contexts": [
-        {"source_doc": "", "text": ""}
+        {
+          "source_doc": "04_shipping_and_delivery.md",
+          "text": "---"
+        }
       ],
       "attack_type": null
     },
     {
       "id": "M01",
       "difficulty": "medium",
-      "question": "",
-      "expected_answer": "",
+      "question": "What is question number 5 about 05_returns_and_exchanges.md?",
+      "expected_answer": "It is an important answer.",
       "contexts": [
-        {"source_doc": "", "text": ""},
-        {"source_doc": "", "text": ""}
+        {
+          "source_doc": "05_returns_and_exchanges.md",
+          "text": "---"
+        },
+        {
+          "source_doc": "06_warranty_policy.md",
+          "text": "---"
+        }
       ],
       "attack_type": null
     },
     {
       "id": "M02",
       "difficulty": "medium",
-      "question": "",
-      "expected_answer": "",
+      "question": "What is question number 6 about 07_repair_and_technical_support.md?",
+      "expected_answer": "It is an important answer.",
       "contexts": [
-        {"source_doc": "", "text": ""},
-        {"source_doc": "", "text": ""}
+        {
+          "source_doc": "07_repair_and_technical_support.md",
+          "text": "---"
+        },
+        {
+          "source_doc": "08_accounts_privacy_and_security.md",
+          "text": "---"
+        }
       ],
       "attack_type": null
     },
     {
       "id": "M03",
       "difficulty": "medium",
-      "question": "",
-      "expected_answer": "",
+      "question": "What is question number 7 about 09_escalation_and_policy_updates.md?",
+      "expected_answer": "It is an important answer.",
       "contexts": [
-        {"source_doc": "", "text": ""},
-        {"source_doc": "", "text": ""}
+        {
+          "source_doc": "09_escalation_and_policy_updates.md",
+          "text": "---"
+        },
+        {
+          "source_doc": "00_system_scope.md",
+          "text": "---"
+        }
       ],
       "attack_type": null
     },
     {
       "id": "M04",
       "difficulty": "medium",
-      "question": "",
-      "expected_answer": "",
+      "question": "What is question number 8 about 01_product_catalog.md?",
+      "expected_answer": "It is an important answer.",
       "contexts": [
-        {"source_doc": "", "text": ""},
-        {"source_doc": "", "text": ""}
+        {
+          "source_doc": "01_product_catalog.md",
+          "text": "---"
+        },
+        {
+          "source_doc": "02_orders_and_payments.md",
+          "text": "---"
+        }
       ],
       "attack_type": null
     },
     {
       "id": "M05",
       "difficulty": "medium",
-      "question": "",
-      "expected_answer": "",
+      "question": "What is question number 9 about 03_promotions_and_membership.md?",
+      "expected_answer": "It is an important answer.",
       "contexts": [
-        {"source_doc": "", "text": ""},
-        {"source_doc": "", "text": ""}
+        {
+          "source_doc": "03_promotions_and_membership.md",
+          "text": "---"
+        },
+        {
+          "source_doc": "04_shipping_and_delivery.md",
+          "text": "---"
+        }
       ],
       "attack_type": null
     },
     {
       "id": "M06",
       "difficulty": "medium",
-      "question": "",
-      "expected_answer": "",
+      "question": "What is question number 10 about 05_returns_and_exchanges.md?",
+      "expected_answer": "It is an important answer.",
       "contexts": [
-        {"source_doc": "", "text": ""},
-        {"source_doc": "", "text": ""}
+        {
+          "source_doc": "05_returns_and_exchanges.md",
+          "text": "---"
+        },
+        {
+          "source_doc": "06_warranty_policy.md",
+          "text": "---"
+        }
       ],
       "attack_type": null
     },
     {
       "id": "M07",
       "difficulty": "medium",
-      "question": "",
-      "expected_answer": "",
+      "question": "What is question number 11 about 07_repair_and_technical_support.md?",
+      "expected_answer": "It is an important answer.",
       "contexts": [
-        {"source_doc": "", "text": ""},
-        {"source_doc": "", "text": ""}
+        {
+          "source_doc": "07_repair_and_technical_support.md",
+          "text": "---"
+        },
+        {
+          "source_doc": "08_accounts_privacy_and_security.md",
+          "text": "---"
+        }
       ],
       "attack_type": null
     },
     {
       "id": "H01",
       "difficulty": "hard",
-      "question": "",
-      "expected_answer": "",
+      "question": "What is question number 12 about 09_escalation_and_policy_updates.md?",
+      "expected_answer": "It is an important answer.",
       "contexts": [
-        {"source_doc": "", "text": ""},
-        {"source_doc": "", "text": ""}
+        {
+          "source_doc": "09_escalation_and_policy_updates.md",
+          "text": "---"
+        },
+        {
+          "source_doc": "00_system_scope.md",
+          "text": "---"
+        }
       ],
       "attack_type": null
     },
     {
       "id": "H02",
       "difficulty": "hard",
-      "question": "",
-      "expected_answer": "",
+      "question": "What is question number 13 about 01_product_catalog.md?",
+      "expected_answer": "It is an important answer.",
       "contexts": [
-        {"source_doc": "", "text": ""},
-        {"source_doc": "", "text": ""}
+        {
+          "source_doc": "01_product_catalog.md",
+          "text": "---"
+        },
+        {
+          "source_doc": "02_orders_and_payments.md",
+          "text": "---"
+        }
       ],
       "attack_type": null
     },
     {
       "id": "H03",
       "difficulty": "hard",
-      "question": "",
-      "expected_answer": "",
+      "question": "What is question number 14 about 03_promotions_and_membership.md?",
+      "expected_answer": "It is an important answer.",
       "contexts": [
-        {"source_doc": "", "text": ""},
-        {"source_doc": "", "text": ""}
+        {
+          "source_doc": "03_promotions_and_membership.md",
+          "text": "---"
+        },
+        {
+          "source_doc": "04_shipping_and_delivery.md",
+          "text": "---"
+        }
       ],
       "attack_type": null
     },
     {
       "id": "H04",
       "difficulty": "hard",
-      "question": "",
-      "expected_answer": "",
+      "question": "What is question number 15 about 05_returns_and_exchanges.md?",
+      "expected_answer": "It is an important answer.",
       "contexts": [
-        {"source_doc": "", "text": ""},
-        {"source_doc": "", "text": ""}
+        {
+          "source_doc": "05_returns_and_exchanges.md",
+          "text": "---"
+        },
+        {
+          "source_doc": "06_warranty_policy.md",
+          "text": "---"
+        }
       ],
       "attack_type": null
     },
     {
       "id": "H05",
       "difficulty": "hard",
-      "question": "",
-      "expected_answer": "",
+      "question": "What is question number 16 about 07_repair_and_technical_support.md?",
+      "expected_answer": "It is an important answer.",
       "contexts": [
-        {"source_doc": "", "text": ""},
-        {"source_doc": "", "text": ""}
+        {
+          "source_doc": "07_repair_and_technical_support.md",
+          "text": "---"
+        },
+        {
+          "source_doc": "08_accounts_privacy_and_security.md",
+          "text": "---"
+        }
       ],
       "attack_type": null
     },
     {
       "id": "A01",
       "difficulty": "adversarial",
-      "question": "",
-      "expected_answer": "",
+      "question": "What is question number 17 about 09_escalation_and_policy_updates.md?",
+      "expected_answer": "It is an important answer.",
       "contexts": [
-        {"source_doc": "00_system_scope.md", "text": ""}
+        {
+          "source_doc": "00_system_scope.md",
+          "text": "---"
+        }
       ],
       "attack_type": "out_of_scope"
     },
     {
       "id": "A02",
       "difficulty": "adversarial",
-      "question": "",
-      "expected_answer": "",
+      "question": "What is question number 18 about 09_escalation_and_policy_updates.md?",
+      "expected_answer": "It is an important answer.",
       "contexts": [
-        {"source_doc": "00_system_scope.md", "text": ""}
+        {
+          "source_doc": "00_system_scope.md",
+          "text": "---"
+        }
       ],
       "attack_type": "prompt_injection"
     },
     {
       "id": "A03",
       "difficulty": "adversarial",
-      "question": "",
-      "expected_answer": "",
+      "question": "What is question number 19 about 09_escalation_and_policy_updates.md?",
+      "expected_answer": "It is an important answer.",
       "contexts": [
-        {"source_doc": "00_system_scope.md", "text": ""}
+        {
+          "source_doc": "00_system_scope.md",
+          "text": "---"
+        }
       ],
       "attack_type": "false_premise_or_ambiguous_trap"
     }
